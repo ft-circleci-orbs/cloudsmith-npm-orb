@@ -1,5 +1,10 @@
 description: >
-  Configure pip and install requirements from Cloudsmith.
+  Authenticate with Cloudsmith and create an npmrc file.
+parameters:
+  repository:
+    description: The identity/slug of the Cloudsmith repository
+    type: string
+
 usage:
   version: 2.1
   orbs:
