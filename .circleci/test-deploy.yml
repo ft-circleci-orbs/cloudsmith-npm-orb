@@ -46,7 +46,7 @@ jobs:
       - checkout
       - cloudsmith-npm/create_npmrc:
           repository: "circleci-orb-testing"
-      - run: npm install simple-npm-package==1.0.0
+      - run: npm install simple-npm-package
 
 workflows:
   test-deploy:
