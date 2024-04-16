@@ -1,21 +1,20 @@
 description: >
-  Upload a python package to Cloudsmith using the Cloudsmith CLI.
+  Upload an npm package to Cloudsmith using the Cloudsmith CLI.
 usage:
   version: 2.1
   orbs:
-    cloudsmith-python: ft-circleci-orbs/cloudsmith-python@1.1
+    cloudsmith-npm ft-circleci-orbs/cloudsmith-npm@1.1
   jobs:
     build:
       docker:
-        - image: cimg/python:3.9
+        - image: cimg/node:20.12
       steps:
         - checkout
-        - run: python -m ensurepip --upgrade
+
         - run:
-            name: Build source and wheel distributions
-            command: |
-              python -m pip install build --upgrade --user
-              python -m build
+            name: Build package
+            command: npm pack
+
         - cloudsmith-python/upload_package:
             repository: "your-repository-id"
   workflows:
