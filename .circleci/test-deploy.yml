@@ -30,17 +30,40 @@ jobs:
       - cloudsmith-npm/create_npmrc:
           repository: "circleci-orb-testing"
       - run:
-          name: Assert npmrc file has been set up correctly
+          name: Assert environment variables have been set
           command: |
+            if [ $CLOUDSMITH_DOWNLOADS_DOMAIN != "packages.ft.com" ]
+            then
+              echo "Test failed: CLOUDSMITH_DOWNLOADS_DOMAIN has not been set correctly."
+              exit 1
+            fi
+            echo "All tests passed."
 
+  test-npm_install_package_example:
+    docker:
+      - image: cimg/node:20.12
+    steps:
+      - checkout
+      - cloudsmith-npm/create_npmrc:
+          repository: "circleci-orb-testing"
+      - run: npm install simple-npm-package
 
-
-
-
-
-
-
-
+  test-npm_install_package_json_example:
+    docker:
+      - image: cimg/node:20.12
+    steps:
+      - checkout
+      - run:
+          name: Create package.json
+          command: |
+            echo '{
+              "dependencies": {
+                "simple-npm-package": "^1.0.0"
+              }
+            }' > package.json
+      - cloudsmith-npm/create_npmrc:
+          repository: "circleci-orb-testing"
+      - run: npm install
 
 workflows:
   test-deploy:
@@ -48,6 +71,12 @@ workflows:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
       # Test your orb's commands in a custom job and test your orb's jobs directly as a part of this workflow.
       - test-create_npmrc:
+          context: circleci-orb-publishing
+          filters: *filters
+      - test-npm_install_package_example:
+          context: circleci-orb-publishing
+          filters: *filters
+      - test-npm_install_package_json_example:
           context: circleci-orb-publishing
           filters: *filters
       # The orb must be re-packed for publishing, and saved to the workspace.
@@ -61,6 +90,8 @@ workflows:
           requires:
             - orb-tools/pack
             - test-create_npmrc
+            - test-npm_install_package_example
+            - test-npm_install_package_json_example
           # Use a context to hold your publishing token.
           context: circleci-orb-publishing
           filters: *release-filters

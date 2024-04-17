@@ -1,5 +1,10 @@
 description: >
-  Install a package from Cloudsmith using npm.
+  Authenticate with Cloudsmith and create an npmrc file.
+parameters:
+  repository:
+    description: The identity/slug of the Cloudsmith repository
+    type: string
+
 usage:
   version: 2.1
   orbs:
@@ -10,9 +15,9 @@ usage:
         - image: cimg/node:20.12
       steps:
         - checkout
-        - cloudsmith-python/set_env_vars_for_pip:
+        - cloudsmith-python/create_npmrc:
             repository: "your-repository-id"
-        - run: npm install your-package==0.0.0
+
   workflows:
     main:
       jobs:
