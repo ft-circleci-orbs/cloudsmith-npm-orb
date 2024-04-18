@@ -24,7 +24,7 @@ then
 fi
 
 npm config set registry=https://npm."$CLOUDSMITH_DOWNLOADS_DOMAIN"/"$CLOUDSMITH_REPOSITORY"/
-npm config set //npm."$CLOUDSMITH_DOWNLOADS_DOMAIN/$CLOUDSMITH_REPOSITORY"/:_authToken="$CLOUDSMITH_OIDC_TOKEN"
+npm config set //npm."$CLOUDSMITH_DOWNLOADS_DOMAIN"/"$CLOUDSMITH_REPOSITORY"/:_authToken="$CLOUDSMITH_OIDC_TOKEN"
 
 echo ".npmrc file has been created with the following contents:
 
