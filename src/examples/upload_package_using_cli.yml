@@ -15,7 +15,7 @@ usage:
             name: Build package
             command: npm pack
 
-        - cloudsmith-python/upload_package:
+        - cloudsmith-npm/create_npmrc:
             repository: "your-repository-id"
   workflows:
     main:

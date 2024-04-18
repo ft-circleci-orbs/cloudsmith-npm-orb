@@ -15,7 +15,7 @@ usage:
         - image: cimg/node:20.12
       steps:
         - checkout
-        - cloudsmith-python/create_npmrc:
+        - cloudsmith-npm/create_npmrc:
             repository: "your-repository-id"
 
   workflows:
