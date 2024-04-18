@@ -23,9 +23,7 @@ then
   exit 1
 fi
 
-NPM_REGISTRY_URL="https://npm."$CLOUDSMITH_DOWNLOADS_DOMAIN"/"$CLOUDSMITH_REPOSITORY"/
-//npm."$CLOUDSMITH_DOWNLOADS_DOMAIN"/"$CLOUDSMITH_REPOSITORY"/:_authToken="$CLOUDSMITH_OIDC_TOKEN""
-
+NPM_REGISTRY_URL="https://npm.$CLOUDSMITH_DOWNLOADS_DOMAIN/$CLOUDSMITH_REPOSITORY/"$'\n'"//npm.$CLOUDSMITH_DOWNLOADS_DOMAIN/$CLOUDSMITH_REPOSITORY/:_authToken=$CLOUDSMITH_OIDC_TOKEN"
 echo "export NPM_REGISTRY_URL=\"$NPM_REGISTRY_URL\"" >> "$BASH_ENV"
 
 echo "The following environment variables have been exported. Note, the OIDC token has been masked below."
