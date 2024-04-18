@@ -37,9 +37,9 @@ jobs:
               echo "Test failed: CLOUDSMITH_DOWNLOADS_DOMAIN has not been set correctly."
               exit 1
             fi
-            if [ -z $CLOUDSMITH_REGISTRY_URL ]
+            if [ -z $NPM_REGISTRY_URL ]
             then
-              echo "Test failed: CLOUDSMITH_REGISTRY_URL has not been set."
+              echo "Test failed: NPM_REGISTRY_URL has not been set."
               exit 1
             fi
             echo "All tests passed."
@@ -60,7 +60,7 @@ jobs:
               echo "Test failed: .npmrc file has not been created."
               exit 1
             fi
-            if ! grep -q "registry=https://npm."$CLOUDSMITH_DOWNLOADS_DOMAIN" ~/.npmrc
+            if ! grep -q "registry=https://npm.${CLOUDSMITH_DOWNLOADS_DOMAIN}" ~/.npmrc
             then
               echo "Test failed: .npmrc file does not contain the correct registry URL."
               exit 1
