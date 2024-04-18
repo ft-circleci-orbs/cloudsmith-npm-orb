@@ -1,0 +1,18 @@
+description:
+  Generate temporary Cloudsmith credentials using OIDC and construct an NPM registry URL string for a specific Cloudsmith
+  repository. On completion the command sets the NPM_REGISTRY_URL environment variable for
+  use with npm. The registry url includes Cloudsmith authentication credentials generated using OIDC.
+parameters:
+  repository:
+    description: The identity/slug of the Cloudsmith repository
+    type: string
+steps:
+  - run:
+      name: Cloudsmith - Configure defaults
+      command: <<include(scripts/configure_cloudsmith_defaults.sh)>>
+  - cloudsmith-oidc/authenticate_with_oidc
+  - run:
+      name: Cloudsmith - Set NPM_REGISTRY_URL environment variable
+      command: <<include(scripts/set_env_vars_for_npm.sh)>>
+      environment:
+        CLOUDSMITH_REPOSITORY: <<parameters.repository>>
