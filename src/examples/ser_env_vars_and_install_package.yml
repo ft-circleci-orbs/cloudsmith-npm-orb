@@ -10,9 +10,10 @@ usage:
         - image: cimg/node:20.12
       steps:
         - checkout
-        - cloudsmith-python/set_env_vars_for_pip:
+        - cloudsmith-npm/set_env_vars_for_npm:
             repository: "your-repository-id"
-        - run: npm install your-package==0.0.0
+        - run: npm install your-package==0.0.0 --${CLOUDSMITH_NPM_REGISTRY}
+
   workflows:
     main:
       jobs:
