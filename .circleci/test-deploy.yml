@@ -54,7 +54,7 @@ jobs:
           repository: "circleci-orb-testing"
       - run:
           name: Install an npm package
-          command: npm install simple-npm-package --registry=$NPM_REGISTRY_URL
+          command: npm install simple-npm-package --$NPM_REGISTRY_URL
 
   test-create_npmrc:
     docker:
