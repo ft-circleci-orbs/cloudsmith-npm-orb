@@ -17,7 +17,7 @@ usage:
         - checkout
         - cloudsmith-npm/create_npmrc:
             repository: "your-repository-id"
-
+        - run: npm install # Install your package.json dependencies
   workflows:
     main:
       jobs:
