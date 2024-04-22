@@ -1,5 +1,5 @@
 description: >
-  Upload an npm package to Cloudsmith using the Cloudsmith CLI.
+  Install a package from Cloudsmith using npm.
 usage:
   version: 2.1
   orbs:
@@ -10,13 +10,9 @@ usage:
         - image: cimg/node:20.12
       steps:
         - checkout
-
-        - run:
-            name: Build package
-            command: npm pack
-
         - cloudsmith-npm/create_npmrc:
             repository: "your-repository-id"
+        - run: npm install your-package==0.0.0
   workflows:
     main:
       jobs:

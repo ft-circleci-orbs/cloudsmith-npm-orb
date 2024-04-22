@@ -21,13 +21,13 @@ release-filters: &release-filters
 
 jobs:
 
-  test-create_npmrc:
+  test-set_env_vars_for_npm:
     docker:
       - image: cimg/node:20.12
     resource_class: small
     steps:
       - checkout
-      - cloudsmith-npm/create_npmrc:
+      - cloudsmith-npm/set_env_vars_for_npm:
           repository: "circleci-orb-testing"
       - run:
           name: Assert environment variables have been set
@@ -37,9 +37,54 @@ jobs:
               echo "Test failed: CLOUDSMITH_DOWNLOADS_DOMAIN has not been set correctly."
               exit 1
             fi
+            if [ -z $NPM_REGISTRY_URL ]
+            then
+              echo "Test failed: NPM_REGISTRY_URL has not been set."
+              exit 1
+            fi
             echo "All tests passed."
 
-  test-npm_install_package_example:
+  test-set_env_vars_for_npm_install_package:
+    docker:
+      - image: cimg/node:20.12
+    resource_class: small
+    steps:
+      - checkout
+      - cloudsmith-npm/set_env_vars_for_npm:
+          repository: "circleci-orb-testing"
+      - run:
+          name: Install an npm package
+          command: npm install simple-npm-package --registry=$NPM_REGISTRY_URL
+
+  test-create_npmrc:
+    docker:
+      - image: cimg/node:20.12
+    resource_class: small
+    steps:
+      - checkout
+      - cloudsmith-npm/create_npmrc:
+          repository: "circleci-orb-testing"
+      - run:
+          name: Assert .npmrc file has been created
+          command: |
+            if [ ! -f ~/.npmrc ]
+            then
+              echo "Test failed: .npmrc file has not been created."
+              exit 1
+            fi
+            if ! grep -q "registry=https://npm.${CLOUDSMITH_DOWNLOADS_DOMAIN}" ~/.npmrc
+            then
+              echo "Test failed: .npmrc file does not contain the correct registry URL."
+              exit 1
+            fi
+            if ! grep -q "authToken=" ~/.npmrc
+            then
+              echo "Test failed: .npmrc file does not contain an authToken."
+              exit 1
+            fi
+            echo "All tests passed."
+
+  test-create_npmrc_install_package_example:
     docker:
       - image: cimg/node:20.12
     steps:
@@ -48,7 +93,7 @@ jobs:
           repository: "circleci-orb-testing"
       - run: npm install simple-npm-package
 
-  test-npm_install_package_json_example:
+  test-create_npmrc_install_package_json_example:
     docker:
       - image: cimg/node:20.12
     steps:
@@ -70,13 +115,19 @@ workflows:
     jobs:
       # Make sure to include "filters: *filters" in every test job you want to run as part of your deployment.
       # Test your orb's commands in a custom job and test your orb's jobs directly as a part of this workflow.
+      - test-set_env_vars_for_npm:
+          context: circleci-orb-publishing
+          filters: *filters
       - test-create_npmrc:
           context: circleci-orb-publishing
           filters: *filters
-      - test-npm_install_package_example:
+      - test-create_npmrc_install_package_example:
           context: circleci-orb-publishing
           filters: *filters
-      - test-npm_install_package_json_example:
+      - test-create_npmrc_install_package_json_example:
+          context: circleci-orb-publishing
+          filters: *filters
+      - test-set_env_vars_for_npm_install_package:
           context: circleci-orb-publishing
           filters: *filters
       # The orb must be re-packed for publishing, and saved to the workspace.
@@ -90,8 +141,10 @@ workflows:
           requires:
             - orb-tools/pack
             - test-create_npmrc
-            - test-npm_install_package_example
-            - test-npm_install_package_json_example
+            - test-create_npmrc_install_package_example
+            - test-create_npmrc_install_package_json_example
+            - test-set_env_vars_for_npm
+            - test-set_env_vars_for_npm_install_package
           # Use a context to hold your publishing token.
           context: circleci-orb-publishing
           filters: *release-filters

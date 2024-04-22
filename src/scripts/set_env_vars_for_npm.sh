@@ -23,10 +23,10 @@ then
   exit 1
 fi
 
-npm config set registry=https://npm."$CLOUDSMITH_DOWNLOADS_DOMAIN"/"$CLOUDSMITH_REPOSITORY"/
-npm config set //npm."$CLOUDSMITH_DOWNLOADS_DOMAIN"/"$CLOUDSMITH_REPOSITORY"/:_authToken="$CLOUDSMITH_OIDC_TOKEN"
+NPM_REGISTRY_URL="https://npm.$CLOUDSMITH_DOWNLOADS_DOMAIN/$CLOUDSMITH_REPOSITORY/ --//npm.$CLOUDSMITH_DOWNLOADS_DOMAIN/$CLOUDSMITH_REPOSITORY/:_authToken=$CLOUDSMITH_OIDC_TOKEN"
 
-echo ".npmrc file has been created with the following contents:
+echo "export NPM_REGISTRY_URL=\"$NPM_REGISTRY_URL\"" >> "$BASH_ENV"
 
-registry=https://npm.$CLOUDSMITH_DOWNLOADS_DOMAIN/$CLOUDSMITH_REPOSITORY/
-//npm.$CLOUDSMITH_DOWNLOADS_DOMAIN/$CLOUDSMITH_REPOSITORY/:_authToken=**************"
+echo "The following environment variables have been exported. Note, the OIDC token has been masked below."
+echo ""
+echo "NPM_REGISTRY_URL=https://npm.$CLOUDSMITH_DOWNLOADS_DOMAIN/$CLOUDSMITH_REPOSITORY --//npm.$CLOUDSMITH_DOWNLOADS_DOMAIN/$CLOUDSMITH_REPOSITORY/:_authToken=**************"
