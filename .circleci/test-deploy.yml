@@ -151,7 +151,7 @@ workflows:
           context: circleci-orb-publishing
           filters: *filters
       - test-create_npmrc_install_package_json_example:
-          context: circleci-orb-publishing``
+          context: circleci-orb-publishing
           filters: *filters
       - test-set_env_vars_for_npm_install_package:
           context: circleci-orb-publishing
