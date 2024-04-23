@@ -119,7 +119,7 @@ jobs:
       - run:
           name: Build source distribution
           command: npm pack
-          working_directory: .circleci/simple-npm-package
+          working_directory: .circleci/simple-npm-package-test
       - cloudsmith-npm/upload_package:
           repository: "circleci-orb-testing"
           dist_dir: .circleci/simple-npm-package-test
