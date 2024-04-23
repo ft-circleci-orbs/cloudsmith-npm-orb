@@ -10,13 +10,13 @@ usage:
         - image: cimg/node:20.12
       steps:
         - checkout
-
         - run:
             name: Build package
             command: npm pack
-
-        - cloudsmith-npm/create_npmrc:
-            repository: "your-repository-id"
+            working_directory: .circleci/directory-that-contains-package
+        - cloudsmith-npm/upload_package_using_cli:
+            repository: "repository-name"
+            dist_dir: .circleci/distribution-directory
   workflows:
     main:
       jobs:
