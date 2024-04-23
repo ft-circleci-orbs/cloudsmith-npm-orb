@@ -1,8 +1,6 @@
 description:
   Generate temporary Cloudsmith credentials using OIDC and upload an npm package to a Cloudsmith repository using the
   Cloudsmith CLI.
-orbs:
-  cloudsmith-python: ft-circleci-orbs/cloudsmith-python@1.1
 parameters:
   repository:
     description: The identity/slug of the Cloudsmith repository
@@ -15,7 +13,6 @@ steps:
   - run:
       name: Cloudsmith - Configure defaults
       command: <<include(scripts/configure_cloudsmith_defaults.sh)>>
-  - cloudsmith-oidc/authenticate_with_oidc
   - cloudsmith-python/set_env_vars_for_pip
   - run:
       name: Cloudsmith - Upload npm package file(s)
