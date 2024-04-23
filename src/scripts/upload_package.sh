@@ -26,8 +26,8 @@ fi
 # check if apt-get or apk is installed and install python3-pip/py3
 if command -v apt-get &> /dev/null
 then
-  apt-get update
-  apt-get install -y python3-pip
+  sudo apt-get update
+  sudo apt-get install -y python3-pip
 elif command -v apk &> /dev/null
 then
   apk add py3-pip
