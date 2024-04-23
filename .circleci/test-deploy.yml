@@ -126,7 +126,7 @@ jobs:
 
   test-upload_package_using_cli_alpine:
     docker:
-      - image: cimg/node:current-alpine3.18
+      - image: node:current-alpine3.19
     resource_class: small
     steps:
       - checkout
