@@ -28,11 +28,8 @@ if command -v apt-get &> /dev/null
 then
   sudo apt-get update
   sudo apt-get install -y python3-pip
-elif command -v apk &> /dev/null
-then
-  apk add py3-pip
 else
-  echo "Neither apt-get nor apk is installed. Exiting."
+  echo "apt-get is not installed. Please use a debian based image. Exiting."
   exit 1
 fi
 

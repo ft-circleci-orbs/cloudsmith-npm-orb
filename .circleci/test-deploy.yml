@@ -124,20 +124,6 @@ jobs:
           repository: "circleci-orb-testing"
           dist_dir: .circleci/simple-npm-package-test
 
-  test-upload_package_using_cli_alpine:
-    docker:
-      - image: node:current-alpine3.19
-    resource_class: small
-    steps:
-      - checkout
-      - run:
-          name: Build source distribution
-          command: npm pack
-          working_directory: .circleci/simple-npm-package-test
-      - cloudsmith-npm/upload_package_using_cli:
-          repository: "circleci-orb-testing"
-          dist_dir: .circleci/simple-npm-package-test
-
   test-upload_package_native:
     docker:
       - image: cimg/node:20.12
@@ -176,9 +162,6 @@ workflows:
       - test-upload_package_native:
           context: circleci-orb-publishing
           filters: *filters
-      - test-upload_package_using_cli_alpine:
-          context: circleci-orb-publishing
-          filters: *filters
       # The orb must be re-packed for publishing, and saved to the workspace.
       - orb-tools/pack:
           filters: *release-filters
@@ -196,7 +179,6 @@ workflows:
             - test-set_env_vars_for_npm_install_package
             - test-upload_package_using_cli
             - test-upload_package_native
-            - test-upload_package_using_cli_alpine
           # Use a context to hold your publishing token.
           context: circleci-orb-publishing
           filters: *release-filters
