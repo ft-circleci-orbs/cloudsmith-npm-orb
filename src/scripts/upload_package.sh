@@ -4,30 +4,14 @@
 # shellcheck disable=SC2129
 
 # Check required environment variables are set and look valid
-if [ -z "$CLOUDSMITH_SERVICE_ACCOUNT" ]
-then
-  echo "Please ensure your service account has been added as an environment variable in your CircleCI project config. Env var CLOUDSMITH_SERVICE_ACCOUNT is not defined."
-  exit 1
-fi
 if [ -z "$CLOUDSMITH_ORGANISATION" ]
 then
   echo "Unable to upload package. Env var CLOUDSMITH_ORGANISATION is not defined."
   exit 1
 fi
-
 if [ -z "$CLOUDSMITH_REPOSITORY" ]
 then
   echo "Unable to upload package. Env var CLOUDSMITH_REPOSITORY is not defined."
-  exit 1
-fi
-if [ -z "$CLOUDSMITH_OIDC_TOKEN" ]
-then
-  echo "Unable to find an OIDC token to use. Please ensure that the ser_env_vars_for_npm or create_npmrc command has been run before this command."
-  exit 1
-fi
-if [ -z "$CLOUDSMITH_DOWNLOADS_DOMAIN" ]
-then
-  echo "Env var CLOUDSMITH_DOWNLOADS_DOMAIN is not defined."
   exit 1
 fi
 
@@ -39,10 +23,7 @@ else
   exit 1
 fi
 
-# Build Cloudsmith pip index URL
-CLOUDSMITH_PIP_INDEX_URL="https://$CLOUDSMITH_SERVICE_ACCOUNT:$CLOUDSMITH_OIDC_TOKEN@$CLOUDSMITH_DOWNLOADS_DOMAIN/basic/$CLOUDSMITH_REPOSITORY/python/simple/"
-
-# check if apt-get or apk is installed and install python3-pip/py3-pip
+# check if apt-get or apk is installed and install python3-pip/py3
 if command -v apt-get &> /dev/null
 then
   apt-get update
