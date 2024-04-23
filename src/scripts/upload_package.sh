@@ -39,17 +39,17 @@ fi
 # Install cloudsmith-cli via Cloudsmith
 pip install cloudsmith-cli --extra-index-url="$CLOUDSMITH_PIP_INDEX_URL"
 
-# Check there are tar.gz to upload
-LS_TAR_GZ_CMD="ls -A ${DIST_DIR}/*.tar.gz"
+# Check there are tgz to upload
+LS_TAR_GZ_CMD="ls -A ${DIST_DIR}/*.tgz"
 
 if [ -z "$($LS_TAR_GZ_CMD)" ]
 then
-  echo "$DIST_DIR does not contain any tar.gz or files to upload."
+  echo "$DIST_DIR does not contain any tgz or files to upload."
   exit 1
 fi
 
 # Upload source distribution if present
-for filename in "$DIST_DIR"/*.tar.gz
+for filename in "$DIST_DIR"/*.tgz
 do
   [ -f "$filename" ] || continue
 
