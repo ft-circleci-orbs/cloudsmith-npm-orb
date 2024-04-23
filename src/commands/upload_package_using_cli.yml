@@ -13,7 +13,8 @@ steps:
   - run:
       name: Cloudsmith - Configure defaults
       command: <<include(scripts/configure_cloudsmith_defaults.sh)>>
-  - cloudsmith-python/set_env_vars_for_pip
+  - cloudsmith-python/set_env_vars_for_pip:
+      repository: $CLOUDSMITH_REPOSITORY
   - run:
       name: Cloudsmith - Upload npm package file(s)
       command: <<include(scripts/upload_package_using_cli.sh)>>
