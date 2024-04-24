@@ -23,19 +23,6 @@ else
   exit 1
 fi
 
-# check if apt-get is installed and install python3-pip/py3
-if command -v apt-get &> /dev/null
-then
-  sudo apt-get update
-  sudo apt-get install -y python3-pip
-else
-  echo "apt-get is not installed. Please use a debian based image. Exiting."
-  exit 1
-fi
-
-# Install cloudsmith-cli via Cloudsmith
-pip install cloudsmith-cli --extra-index-url="$CLOUDSMITH_PIP_INDEX_URL"
-
 # Check there are tgz to upload
 LS_TAR_GZ_CMD="ls -A ${DIST_DIR}/*.tgz"
 
@@ -45,7 +32,7 @@ then
   exit 1
 fi
 
-# Upload source distribution if present
+# Upload package if present
 for filename in "$DIST_DIR"/*.tgz
 do
   [ -f "$filename" ] || continue
