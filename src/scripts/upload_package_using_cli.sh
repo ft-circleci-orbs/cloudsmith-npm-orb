@@ -14,6 +14,11 @@ then
   echo "Unable to upload package. Env var CLOUDSMITH_REPOSITORY is not defined."
   exit 1
 fi
+if [ -z "$CLOUDSMITH_OIDC_TOKEN" ]
+then
+  echo "Unable to upload package. Env var CLOUDSMITH_OIDC_TOKEN is not defined."
+  exit 1
+fi
 
 # Check if the dist directory exists and is valid
 if [ -d "$DIST_DIR" ]; then
