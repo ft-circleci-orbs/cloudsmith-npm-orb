@@ -17,7 +17,7 @@ steps:
       name: Install python3 and pip
       command: |
         sudo apt-get update
-        sudo apt-get install -y python3 python3-pip
+        sudo apt-get install -y python3-pip
   - run:
       name: Cloudsmith - Install CLI
       command: |
