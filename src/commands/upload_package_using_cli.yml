@@ -21,8 +21,6 @@ steps:
   - run:
       name: Cloudsmith - Install CLI
       command: |
-        python -m ensurepip --upgrade
-
         echo "Installing cloudsmith-cli using pip ..."
 
         python -m pip install cloudsmith-cli --upgrade --user --extra-index-url=https://dl.cloudsmith.io/public/cloudsmith/cli/python/index/
