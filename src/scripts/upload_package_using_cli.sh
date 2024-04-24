@@ -23,7 +23,7 @@ else
   exit 1
 fi
 
-# check if apt-get or apk is installed and install python3-pip/py3
+# check if apt-get is installed and install python3-pip/py3
 if command -v apt-get &> /dev/null
 then
   sudo apt-get update
@@ -50,7 +50,7 @@ for filename in "$DIST_DIR"/*.tgz
 do
   [ -f "$filename" ] || continue
 
-  echo "Uploading source distribution $filename to Cloudsmith repository $CLOUDSMITH_ORGANISATION/$CLOUDSMITH_REPOSITORY ..."
+  echo "Uploading npm package $filename to Cloudsmith repository $CLOUDSMITH_ORGANISATION/$CLOUDSMITH_REPOSITORY ..."
 
   cloudsmith push npm --verbose --api-key "$CLOUDSMITH_OIDC_TOKEN" "$CLOUDSMITH_ORGANISATION/$CLOUDSMITH_REPOSITORY" "$filename"
 
