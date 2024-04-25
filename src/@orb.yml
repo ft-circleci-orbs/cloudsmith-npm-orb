@@ -2,7 +2,6 @@ version: 2.1
 
 orbs:
   cloudsmith-oidc: ft-circleci-orbs/cloudsmith-oidc@1.0.0
-  cloudsmith-python: ft-circleci-orbs/cloudsmith-python@1.1
 
 description: |
   Install npm packages from and publish npm packages to Cloudsmith using short-lived OIDC credentials.
