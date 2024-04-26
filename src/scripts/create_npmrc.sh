@@ -36,7 +36,7 @@ fi
 npm config set registry="$NPM_CONFIG_URL"
 npm config set "$NPM_CONFIG_AUTH"
 
-echo ".npmrc file has been created with the following contents:
-
-registry=$NPM_CONFIG_URL
-//npm.$CONFIG_AUTH
+echo ".npmrc file has been created with the following contents:"
+echo: ""
+echo "registry=$NPM_CONFIG_URL"
+echo "//npm.$CONFIG_AUTH"
