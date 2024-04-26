@@ -22,11 +22,21 @@ then
   echo "Unable to set environment variables for npm. Env var CLOUDSMITH_DOWNLOADS_DOMAIN is not defined."
   exit 1
 fi
+if [ -z "$NPM_CONFIG_URL" ]
+then
+  echo "Unable to set environment variables for npm. Env var NPM_URL is not defined."
+  exit 1
+fi
+if [ -z "$NPM_CONFIG_AUTH" ]
+then
+  echo "Unable to set environment variables for npm. Env var NPM_URL is not defined."
+  exit 1
+fi
 
 npm config set registry="$NPM_CONFIG_URL"
 npm config set "$NPM_CONFIG_AUTH"
 
 echo ".npmrc file has been created with the following contents:
 
-registry=https://npm.$CLOUDSMITH_DOWNLOADS_DOMAIN/$CLOUDSMITH_REPOSITORY/
-//npm.$CLOUDSMITH_DOWNLOADS_DOMAIN/$CLOUDSMITH_REPOSITORY/:_authToken=**************"
+registry=$NPM_CONFIG_URL
+//npm.$CONFIG_AUTH

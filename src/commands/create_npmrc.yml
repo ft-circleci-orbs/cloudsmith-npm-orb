@@ -11,6 +11,11 @@ steps:
       command: <<include(scripts/configure_cloudsmith_defaults.sh)>>
   - cloudsmith-oidc/authenticate_with_oidc
   - run:
+      name: Cloudsmith - Set NPM_REGISTRY_URL environment variable
+      command: <<include(scripts/set_env_vars_for_npm.sh)>>
+      environment:
+        CLOUDSMITH_REPOSITORY: <<parameters.repository>>
+  - run:
       name: Cloudsmith - Create .npmrc file
       command: <<include(scripts/create_npmrc.sh)>>
       environment:
