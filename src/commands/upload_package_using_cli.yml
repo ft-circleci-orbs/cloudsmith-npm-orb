@@ -15,10 +15,13 @@ steps:
       command: <<include(scripts/configure_cloudsmith_defaults.sh)>>
   - cloudsmith-oidc/authenticate_with_oidc
   - run:
+      name: Install python3 and pip
+      command: |
+        sudo apt-get update
+        sudo apt-get install -y python3-pip
+  - run:
       name: Cloudsmith - Install CLI
       command: |
-        python -m ensurepip --upgrade
-
         echo "Installing cloudsmith-cli using pip ..."
 
         python -m pip install cloudsmith-cli --upgrade --user --extra-index-url=https://dl.cloudsmith.io/public/cloudsmith/cli/python/index/
@@ -29,8 +32,7 @@ steps:
         cloudsmith --version
   - run:
       name: Cloudsmith - Upload npm package file(s)
-      command: <<include(scripts/upload_package.sh)>>
+      command: <<include(scripts/upload_package_using_cli.sh)>>
       environment:
         CLOUDSMITH_REPOSITORY: <<parameters.repository>>
         DIST_DIR: <<parameters.dist_dir>>
-

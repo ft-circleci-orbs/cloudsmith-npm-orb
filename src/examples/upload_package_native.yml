@@ -1,10 +1,5 @@
 description: >
-  Authenticate with Cloudsmith and create an npmrc file.
-parameters:
-  repository:
-    description: The identity/slug of the Cloudsmith repository
-    type: string
-
+  Upload an npm package to Cloudsmith using npm publish.
 usage:
   version: 2.1
   orbs:
@@ -18,8 +13,8 @@ usage:
         - cloudsmith-npm/create_npmrc:
             repository: "your-repository-id"
         - run:
-            name: Install packages from package.json
-            command: npm install
+            name: Publish package
+            command: npm publish
   workflows:
     main:
       jobs:

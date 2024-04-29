@@ -12,7 +12,9 @@ usage:
         - checkout
         - cloudsmith-npm/create_npmrc:
             repository: "your-repository-id"
-        - run: npm install your-package==0.0.0
+        - run:
+            name: Install specific package
+            command: npm install your-package==0.0.0
   workflows:
     main:
       jobs:

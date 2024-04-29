@@ -12,7 +12,9 @@ usage:
         - checkout
         - cloudsmith-npm/set_env_vars_for_npm:
             repository: "your-repository-id"
-        - run: npm install your-package==0.0.0 --registry=$CLOUDSMITH_NPM_REGISTRY
+        - run:
+            name: Install specific package using --registry flag and env var
+            command: npm install your-package==0.0.0 --registry=$CLOUDSMITH_NPM_REGISTRY
 
   workflows:
     main:
