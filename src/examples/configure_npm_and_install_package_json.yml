@@ -1,5 +1,10 @@
 description: >
-  Install a package from Cloudsmith using npm.
+  Authenticate with Cloudsmith and configure npm to use Cloudsmith.
+parameters:
+  repository:
+    description: The identity/slug of the Cloudsmith repository
+    type: string
+
 usage:
   version: 2.1
   orbs:
@@ -13,8 +18,8 @@ usage:
         - cloudsmith-npm/configure_npm:
             repository: "your-repository-id"
         - run:
-            name: Install specific package
-            command: npm install your-package==0.0.0
+            name: Install packages from Cloudsmith
+            command: npm install
   workflows:
     main:
       jobs:

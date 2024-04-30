@@ -5,38 +5,21 @@
 
 set +e
 
-if [ -z "$CLOUDSMITH_SERVICE_ACCOUNT" ] || [ -z "$CLOUDSMITH_OIDC_TOKEN" ]
+if [ -z "$CLOUDSMITH_NPM_REGISTRY" ]
 then
-  echo "Unable to find an OIDC token to use. Please ensure the cloudsmith-oidc/authenticate_with_oidc command has been run before this command."
+  echo "Unable to configure NPM. Env var CLOUDSMITH_NPM_REGISTRY is not defined. Please run the set_env_vars_for_npm command first."
+  exit 1
+fi
+if [ -z "$CLOUDSMITH_NPM_AUTH_CONFIG" ]
+then
+  echo "Unable to configure NPM. Env var CLOUDSMITH_NPM_AUTH_CONFIG is not defined. Please run the set_env_vars_for_npm command first."
   exit 1
 fi
 
-if [ -z "$CLOUDSMITH_REPOSITORY" ]
-then
-  echo "Unable to set environment variables for npm. Env var CLOUDSMITH_REPOSITORY is not defined."
-  exit 1
-fi
+npm config set registry="$CLOUDSMITH_NPM_REGISTRY"
+npm config set "$CLOUDSMITH_NPM_AUTH_CONFIG"
 
-if [ -z "$CLOUDSMITH_DOWNLOADS_DOMAIN" ]
-then
-  echo "Unable to set environment variables for npm. Env var CLOUDSMITH_DOWNLOADS_DOMAIN is not defined."
-  exit 1
-fi
-if [ -z "$NPM_CONFIG_URL" ]
-then
-  echo "Unable to set environment variables for npm. Env var NPM_CONFIG_URL is not defined. Please run the set-env-vars-for-npm command first."
-  exit 1
-fi
-if [ -z "$NPM_CONFIG_AUTH" ]
-then
-  echo "Unable to set environment variables for npm. Env var NPM_CONFIG_AUTH is not defined. Please run the set-env-vars-for-npm command first."
-  exit 1
-fi
-
-npm config set registry="$NPM_CONFIG_URL"
-npm config set "$NPM_CONFIG_AUTH"
-
-echo ".npmrc file has been created with the following contents:"
+echo "NPM has been configured with the following:"
 echo ""
-echo "registry=$NPM_CONFIG_URL"
-echo "//npm.$CONFIG_AUTH"
+echo "registry=$CLOUDSMITH_NPM_REGISTRY"
+echo "//npm.$CLOUDSMITH_NPM_AUTH_CONFIG"

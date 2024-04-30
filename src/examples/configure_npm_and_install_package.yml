@@ -1,10 +1,5 @@
 description: >
-  Authenticate with Cloudsmith and create an npmrc file.
-parameters:
-  repository:
-    description: The identity/slug of the Cloudsmith repository
-    type: string
-
+  Configure npm and install a package from Cloudsmith.
 usage:
   version: 2.1
   orbs:
@@ -18,8 +13,8 @@ usage:
         - cloudsmith-npm/configure_npm:
             repository: "your-repository-id"
         - run:
-            name: Install packages from package.json
-            command: npm install
+            name: Install specific package from Cloudsmith
+            command: npm install your-package==0.0.0
   workflows:
     main:
       jobs:

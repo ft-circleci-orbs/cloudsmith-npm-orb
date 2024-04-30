@@ -32,14 +32,19 @@ jobs:
       - run:
           name: Assert environment variables have been set
           command: |
-            if [ $CLOUDSMITH_DOWNLOADS_DOMAIN != "packages.ft.com" ]
+            if [ -z $CLOUDSMITH_NPM_REGISTRY ]
             then
-              echo "Test failed: CLOUDSMITH_DOWNLOADS_DOMAIN has not been set correctly."
+              echo "Test failed: CLOUDSMITH_NPM_REGISTRY has not been set."
               exit 1
             fi
-            if [ -z $NPM_REGISTRY_URL ]
+            if [ -z $CLOUDSMITH_NPM_AUTH_CONFIG ]
             then
-              echo "Test failed: NPM_REGISTRY_URL has not been set."
+              echo "Test failed: CLOUDSMITH_NPM_AUTH_CONFIG has not been set."
+              exit 1
+            fi
+            if [ -z $CLOUDSMITH_NPM_REGISTRY_WITH_AUTH_CONFIG ]
+            then
+              echo "Test failed: CLOUDSMITH_NPM_REGISTRY_WITH_AUTH_CONFIG has not been set."
               exit 1
             fi
             echo "All tests passed."
@@ -54,7 +59,7 @@ jobs:
           repository: "circleci-orb-testing"
       - run:
           name: Install an npm package
-          command: npm install simple-npm-package --registry=$NPM_REGISTRY_URL
+          command: npm install simple-npm-package --registry=$CLOUDSMITH_NPM_REGISTRY_WITH_AUTH_CONFIG
 
   test-configure_npm:
     docker:
