@@ -17,6 +17,6 @@ steps:
         CLOUDSMITH_REPOSITORY: <<parameters.repository>>
   - run:
       name: Cloudsmith - Create .npmrc file
-      command: <<include(scripts/create_npmrc.sh)>>
+      command: <<include(scripts/configure_npm.sh)>>
       environment:
         CLOUDSMITH_REPOSITORY: <<parameters.repository>>

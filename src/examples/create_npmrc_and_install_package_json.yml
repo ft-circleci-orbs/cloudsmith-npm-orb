@@ -15,7 +15,7 @@ usage:
         - image: cimg/node:20.12
       steps:
         - checkout
-        - cloudsmith-npm/create_npmrc:
+        - cloudsmith-npm/configure_npm:
             repository: "your-repository-id"
         - run:
             name: Install packages from package.json

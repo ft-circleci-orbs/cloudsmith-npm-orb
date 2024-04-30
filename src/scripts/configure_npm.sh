@@ -24,12 +24,12 @@ then
 fi
 if [ -z "$NPM_CONFIG_URL" ]
 then
-  echo "Unable to set environment variables for npm. Env var NPM_CONFIG_URL is not defined."
+  echo "Unable to set environment variables for npm. Env var NPM_CONFIG_URL is not defined. Please run the set-env-vars-for-npm command first."
   exit 1
 fi
 if [ -z "$NPM_CONFIG_AUTH" ]
 then
-  echo "Unable to set environment variables for npm. Env var NPM_CONFIG_AUTH is not defined."
+  echo "Unable to set environment variables for npm. Env var NPM_CONFIG_AUTH is not defined. Please run the set-env-vars-for-npm command first."
   exit 1
 fi
 
