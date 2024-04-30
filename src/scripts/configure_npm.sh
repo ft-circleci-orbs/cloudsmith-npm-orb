@@ -19,7 +19,4 @@ fi
 npm config set registry="$CLOUDSMITH_NPM_REGISTRY"
 npm config set "$CLOUDSMITH_NPM_AUTH_CONFIG"
 
-echo "NPM has been configured with the following:"
-echo ""
-echo "registry=$CLOUDSMITH_NPM_REGISTRY"
-echo "//npm.$CLOUDSMITH_NPM_AUTH_CONFIG"
+echo "NPM has been configured to use Cloudsmith registry with $CLOUDSMITH_NPM_REGISTRY."
