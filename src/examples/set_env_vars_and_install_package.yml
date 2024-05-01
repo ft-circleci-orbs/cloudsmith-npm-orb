@@ -1,5 +1,5 @@
 description: >
-  Install a package from Cloudsmith using npm.
+  Install a package from Cloudsmith.
 usage:
   version: 2.1
   orbs:
@@ -13,8 +13,8 @@ usage:
         - cloudsmith-npm/set_env_vars_for_npm:
             repository: "your-repository-id"
         - run:
-            name: Install specific package using --registry flag and env var
-            command: npm install your-package==0.0.0 --registry=$CLOUDSMITH_NPM_REGISTRY
+            name: Install specific package using --registry flag and environment variable
+            command: npm install your-package==0.0.0 --registry="$CLOUDSMITH_NPM_REGISTRY_WITH_AUTH_CONFIG"
 
   workflows:
     main:

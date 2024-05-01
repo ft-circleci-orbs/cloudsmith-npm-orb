@@ -1,5 +1,5 @@
 description: >
-  Install a package from Cloudsmith using npm.
+  Configure npm and install a package from Cloudsmith.
 usage:
   version: 2.1
   orbs:
@@ -10,10 +10,10 @@ usage:
         - image: cimg/node:20.12
       steps:
         - checkout
-        - cloudsmith-npm/create_npmrc:
+        - cloudsmith-npm/configure_npm:
             repository: "your-repository-id"
         - run:
-            name: Install specific package
+            name: Install specific package from Cloudsmith
             command: npm install your-package==0.0.0
   workflows:
     main:

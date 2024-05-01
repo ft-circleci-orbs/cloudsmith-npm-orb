@@ -1,5 +1,5 @@
 description: >
-  Authenticate with Cloudsmith and create an npmrc file.
+  Authenticate with Cloudsmith and configure npm to use Cloudsmith.
 parameters:
   repository:
     description: The identity/slug of the Cloudsmith repository
@@ -15,10 +15,10 @@ usage:
         - image: cimg/node:20.12
       steps:
         - checkout
-        - cloudsmith-npm/create_npmrc:
+        - cloudsmith-npm/configure_npm:
             repository: "your-repository-id"
         - run:
-            name: Install packages from package.json
+            name: Install packages from Cloudsmith
             command: npm install
   workflows:
     main:
