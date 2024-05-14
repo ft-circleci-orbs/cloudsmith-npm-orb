@@ -15,21 +15,27 @@ steps:
       command: <<include(scripts/configure_cloudsmith_defaults.sh)>>
   - cloudsmith-oidc/authenticate_with_oidc
   - run:
-      name: Install python3 and pip
-      command: |
+    name: Check and install python3 and pip
+    command: |
+      if ! command -v pip3 &> /dev/null
+      then
+        echo "pip3 is not installed. Installing now..."
         sudo apt-get update
         sudo apt-get install -y python3-pip
+      else
+        echo "pip3 is already installed. Skipping installation."
+      fi
   - run:
-      name: Cloudsmith - Install CLI
-      command: |
-        echo "Installing cloudsmith-cli using pip ..."
+    name: Cloudsmith - Install CLI
+    command: |
+      echo "Installing cloudsmith-cli using pip ..."
 
-        python -m pip install cloudsmith-cli --upgrade --user --extra-index-url=https://dl.cloudsmith.io/public/cloudsmith/cli/python/index/
+      python -m pip install cloudsmith-cli --upgrade --user --extra-index-url=https://dl.cloudsmith.io/public/cloudsmith/cli/python/index/
 
-        echo ""
-        echo "Cloudsmith CLI installed OK."
+      echo ""
+      echo "Cloudsmith CLI installed OK."
 
-        cloudsmith --version
+      cloudsmith --version
   - run:
       name: Cloudsmith - Upload npm package file(s)
       command: <<include(scripts/upload_package_using_cli.sh)>>
