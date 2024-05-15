@@ -16,7 +16,8 @@ then
   exit 1
 fi
 
-npm config set audit false registry="$CLOUDSMITH_NPM_REGISTRY"
-npm config set audit false "$CLOUDSMITH_NPM_AUTH_CONFIG"
+npm config set registry="$CLOUDSMITH_NPM_REGISTRY"
+npm config set "$CLOUDSMITH_NPM_AUTH_CONFIG"
+npm config set audit false
 
 echo "NPM has been configured to use Cloudsmith registry with $CLOUDSMITH_NPM_REGISTRY."
