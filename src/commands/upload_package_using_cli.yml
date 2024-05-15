@@ -15,10 +15,16 @@ steps:
       command: <<include(scripts/configure_cloudsmith_defaults.sh)>>
   - cloudsmith-oidc/authenticate_with_oidc
   - run:
-      name: Install python3 and pip
+      name: Check and install python3 and pip
       command: |
-        sudo apt-get update
-        sudo apt-get install -y python3-pip
+        if ! command -v pip3 &> /dev/null
+        then
+          echo "pip3 is not installed. Installing now..."
+          sudo apt-get update
+          sudo apt-get install -y python3-pip
+        else
+          echo "pip3 is already installed. Skipping installation."
+        fi
   - run:
       name: Cloudsmith - Install CLI
       command: |
