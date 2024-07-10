@@ -39,8 +39,8 @@ then
 fi
 
 # Set environment variables via Heroku CLI
-heroku config:set NPM_REGISTRY="registry=$CLOUDSMITH_NPM_REGISTRY" --app $APP_NAME
-heroku config:set NPM_TOKEN=$CLOUDSMITH_NPM_AUTH_CONFIG --app $APP_NAME &>/dev/null # Silencing output as it contains an auth token
+heroku config:set NPM_REGISTRY="registry=$CLOUDSMITH_NPM_REGISTRY" --app "$APP_NAME"
+heroku config:set NPM_TOKEN="$CLOUDSMITH_NPM_AUTH_CONFIG" --app "$APP_NAME" &>/dev/null # Silencing output as it contains an auth token
 
 # Check if package.json exists
 if [ ! -f package.json ]; then
