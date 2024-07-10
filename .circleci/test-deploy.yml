@@ -145,7 +145,7 @@ jobs:
   test-configure_npm_for_heroku:
     docker:
       - image: cimg/node:20.12
-    working_directory: ~/project/heroku-cloudsmith-circleci-test
+    working_directory: .circleci/heroku-cloudsmith-circleci-test
     steps:
       - checkout
       - heroku/install
