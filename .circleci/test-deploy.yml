@@ -141,6 +141,21 @@ jobs:
           command: npm publish
           working_directory: .circleci/simple-npm-package-test
 
+  test-configure_npm_for_heroku:
+    docker:
+      - image: cimg/node:20.12
+    steps:
+      - checkout
+      - cloudsmith-npm/configure_npm_for_heroku:
+          repository: "circleci-orb-testing"
+          app_name: "heroku-cloudsmith"
+      - run:
+          name: Deploy to Heroku
+          command: |
+            REMOTE=git.heroku.com/heroku-cloudsmith.git
+            git push https://heroku:$HEROKU_API_KEY@$REMOTE main
+          working_directory: .circleci/heroku-cloudsmith-circleci-test
+
 workflows:
   test-deploy:
     jobs:
