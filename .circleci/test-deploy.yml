@@ -148,16 +148,18 @@ jobs:
     steps:
       - checkout
       - heroku/install
+      - run:
+          name: Change to working directory
+          command: cd .circleci/heroku-cloudsmith-circleci-test
       - cloudsmith-npm/configure_npm_for_heroku:
           repository: "circleci-orb-testing"
           app_name: "heroku-cloudsmith"
-          working_directory: heroku-cloudsmith-circleci-test
       - run:
           name: Deploy to Heroku
           command: |
             REMOTE=git.heroku.com/heroku-cloudsmith.git
             git push https://heroku:$HEROKU_API_KEY@$REMOTE main
-          working_directory: heroku-cloudsmith-circleci-test
+          working_directory: .circleci/heroku-cloudsmith-circleci-test
 
 workflows:
   test-deploy:
