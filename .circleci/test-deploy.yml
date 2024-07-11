@@ -144,12 +144,14 @@ jobs:
   test-configure_npm_for_heroku:
     docker:
       - image: cimg/node:20.12
+    working_directory: ~/project/.circleci/heroku-cloudsmith-circleci-test
     steps:
-      - checkout
+      - checkout:
+          path: ~/project/.circleci/heroku-cloudsmith-circleci-test
       - heroku/install
-      - run:
-          name: Change to working directory
-          command: cd .circleci/heroku-cloudsmith-circleci-test && pwd
+      # - run:
+      #     name: Change to working directory
+      #     command: cd ~/project/heroku-cloudsmith-circleci-test && pwd
       - cloudsmith-npm/configure_npm_for_heroku:
           repository: "circleci-orb-testing"
           app_name: "heroku-cloudsmith"
