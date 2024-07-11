@@ -149,7 +149,7 @@ jobs:
       - heroku/install
       - run:
           name: Change to working directory
-          command: .circleci/heroku-cloudsmith-circleci-test && pwd
+          command: cd .circleci/heroku-cloudsmith-circleci-test && pwd
       - cloudsmith-npm/configure_npm_for_heroku:
           repository: "circleci-orb-testing"
           app_name: "heroku-cloudsmith"
