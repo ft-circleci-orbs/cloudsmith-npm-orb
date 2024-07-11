@@ -8,6 +8,10 @@ parameters:
   app_name:
     description: The name of the Heroku app
     type: string
+  working_directory:
+    description: The working directory to run the command in
+    type: string
+    default: "."
 steps:
   - run:
       name: Cloudsmith - Configure defaults
@@ -24,3 +28,4 @@ steps:
       environment:
         CLOUDSMITH_REPOSITORY: <<parameters.repository>>
         APP_NAME: <<parameters.app_name>>
+        WORKING_DIR: <<parameters.working_directory>>

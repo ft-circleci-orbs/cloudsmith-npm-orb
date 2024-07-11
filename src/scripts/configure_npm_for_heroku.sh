@@ -4,6 +4,8 @@
 # shellcheck disable=SC2129
 
 set +e
+# Change to working directory (defaults to .)
+cd "$WORKING_DIR"
 
 # Check if npm is installed
 if ! command -v npm &> /dev/null

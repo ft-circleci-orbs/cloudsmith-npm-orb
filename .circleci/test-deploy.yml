@@ -150,6 +150,7 @@ jobs:
       - cloudsmith-npm/configure_npm_for_heroku:
           repository: "circleci-orb-testing"
           app_name: "heroku-cloudsmith"
+          working_directory: ".circleci/heroku-cloudsmith-circleci-test"
       - run:
           name: Deploy to Heroku
           command: |
