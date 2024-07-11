@@ -5,7 +5,7 @@
 
 set +e
 # Change to working directory (defaults to .)
-cd "$WORKING_DIR"
+cd "$WORKING_DIR" || exit
 
 # Check if npm is installed
 if ! command -v npm &> /dev/null
