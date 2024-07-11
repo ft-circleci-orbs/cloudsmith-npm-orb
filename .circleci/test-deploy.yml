@@ -155,7 +155,7 @@ jobs:
           name: Deploy to Heroku
           command: |
             REMOTE=git.heroku.com/heroku-cloudsmith.git
-            git push https://heroku:$HEROKU_API_KEY@$REMOTE main
+            git push -f https://heroku:$HEROKU_API_KEY@$REMOTE main
 
 workflows:
   test-deploy:
