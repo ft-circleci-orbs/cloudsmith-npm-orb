@@ -155,7 +155,7 @@ jobs:
           name: Deploy to Heroku
           command: |
             cd .circleci/heroku-cloudsmith-circleci-test
-            heroku buildpacks:set heroku/nodejs
+            heroku buildpacks:set heroku/nodejs --app heroku-cloudsmith
             REMOTE=git.heroku.com/heroku-cloudsmith.git
             git push -f https://heroku:$HEROKU_API_KEY@$REMOTE main
 
