@@ -21,7 +21,6 @@ release-filters: &release-filters
     only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
 
 jobs:
-
   test-set_env_vars_for_npm:
     docker:
       - image: cimg/node:20.12
@@ -149,9 +148,9 @@ jobs:
     steps:
       - checkout
       - heroku/install
-      - run:
-          name: Change to working directory
-          command: cd ~/project/heroku-cloudsmith-circleci-test && pwd
+      # - run:
+      #     name: Change to working directory
+      #     command: cd ~/project/heroku-cloudsmith-circleci-test && pwd
       - cloudsmith-npm/configure_npm_for_heroku:
           repository: "circleci-orb-testing"
           app_name: "heroku-cloudsmith"
@@ -160,7 +159,6 @@ jobs:
           command: |
             REMOTE=git.heroku.com/heroku-cloudsmith.git
             git push https://heroku:$HEROKU_API_KEY@$REMOTE main
-
 
 workflows:
   test-deploy:
