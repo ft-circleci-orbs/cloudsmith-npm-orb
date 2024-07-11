@@ -154,9 +154,9 @@ jobs:
       - run:
           name: Deploy to Heroku
           command: |
+            cd .circleci/heroku-cloudsmith-circleci-test
             REMOTE=git.heroku.com/heroku-cloudsmith.git
             git push -f https://heroku:$HEROKU_API_KEY@$REMOTE main
-          working_directory: ".circleci/heroku-cloudsmith-circleci-test"
 
 workflows:
   test-deploy:
