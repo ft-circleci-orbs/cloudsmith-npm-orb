@@ -9,8 +9,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "test": "node test.js",
-    "build": "cp -a ~/project/.circleci/heroku-cloudsmith-circleci-test/. ~/project/"
+    "test": "node test.js"
   },
   "dependencies": {
     "ejs": "^3.1.9",
