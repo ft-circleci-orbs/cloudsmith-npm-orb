@@ -154,8 +154,7 @@ jobs:
       - run:
           name: Deploy to Heroku
           command: |
-            cd .circleci/heroku-cloudsmith-circleci-test
-            heroku config:set NPM_CONFIG_PREFIX=./subdirectory --app heroku-cloudsmith
+            cp -a .circleci/heroku-cloudsmith-circleci-test ~/project
             REMOTE=git.heroku.com/heroku-cloudsmith.git
             git push -f https://heroku:$HEROKU_API_KEY@$REMOTE main
 
