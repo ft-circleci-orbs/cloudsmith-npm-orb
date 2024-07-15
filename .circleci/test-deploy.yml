@@ -152,13 +152,19 @@ jobs:
           app_name: "heroku-cloudsmith"
           working_directory: ".circleci/heroku-cloudsmith-circleci-test"
       - run:
-          name: Deploy to Heroku
+          name: Test if package.json contains heroku prebuild script
           command: |
-            pwd
-            cp -a .circleci/heroku-cloudsmith-circleci-test/. ~/project/
-            cat package.json
-            REMOTE=git.heroku.com/heroku-cloudsmith.git
-            git push -f https://heroku:$HEROKU_API_KEY@$REMOTE main
+            if ! grep -q "heroku-prebuild" .circleci/heroku-cloudsmith-circleci-test/package.json
+            then
+              echo "Test failed: package.json does not contain heroku-prebuild script."
+              exit 1
+            fi
+            if ! grep -q "npm config set $NPM_REGISTRY" .circleci/heroku-cloudsmith-circleci-test/package.json
+            then
+              echo "Test failed: package.json does not contain NPM REGISTRY."
+              exit 1
+            fi
+            echo "All tests passed."
 
 workflows:
   test-deploy:
