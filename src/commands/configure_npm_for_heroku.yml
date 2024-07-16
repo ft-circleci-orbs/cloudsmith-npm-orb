@@ -22,6 +22,8 @@ steps:
       command: <<include(scripts/set_env_vars_for_npm.sh)>>
       environment:
         CLOUDSMITH_REPOSITORY: <<parameters.repository>>
+  - heroku/install
+  - jq/install
   - run:
       name: Cloudsmith - Configure cloudsmith npm registry
       command: <<include(scripts/configure_npm_for_heroku.sh)>>
