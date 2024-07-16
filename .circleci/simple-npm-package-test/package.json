@@ -1,11 +1,11 @@
 {
-    "name": "simple-npm-package-test",
-    "version": "1.0.0",
-    "description": "A simple npm package used for testing and examples",
-    "main": "index.js",
-    "scripts": {
-      "test": "console.log('Hello World')"
-    },
-    "author": "Code Management",
-    "license": "MIT"
-  }
+  "name": "simple-npm-package-test",
+  "version": "1.0.0",
+  "description": "A simple npm package used for testing and examples",
+  "main": "index.js",
+"scripts": {
+  "test": "console.log('Hello World')"
+  },
+  "author": "Code Management",
+  "license": "MIT"
+}
