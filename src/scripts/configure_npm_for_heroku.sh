@@ -74,3 +74,9 @@ else
     # Create scripts block with heroku-prebuild
     jq '.scripts = {"heroku-prebuild": "npm config set $NPM_REGISTRY ; npm config set $NPM_TOKEN"}' package.json
 fi
+
+# Check if the JSON file is valid
+if ! jq -e . >/dev/null 2>&1 <<<$(cat package.json); then
+    echo "could not parse json file. File may be malformed. Exiting."
+    exit 1
+fi
