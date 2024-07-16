@@ -33,6 +33,13 @@ then
     exit 1
 fi
 
+# Check if jq is installed
+if ! command -v jq &> /dev/null
+then
+    echo "jq could not be found. Please install it to proceed."
+    exit 1
+fi
+
 # Check if APP_NAME is set
 if [ -z "$APP_NAME" ]
 then
@@ -62,8 +69,8 @@ if [ -n "$scripts_block_exists" ] && [ -n "$heroku_prebuild_exists" ]; then
     exit 1
 elif [ -n "$scripts_block_exists" ]; then
     # Add heroku-prebuild to existing scripts block
-    sed -i '/"scripts": {/a\    "heroku-prebuild": "npm config set $NPM_REGISTRY ; npm config set $NPM_TOKEN",' package.json
+    jq '.scripts["heroku-prebuild"] = "npm config set $NPM_REGISTRY ; npm config set $NPM_TOKEN"' package.json
 else
     # Create scripts block with heroku-prebuild
-    sed -i '/"scripts":/a\    "scripts": {\n        "heroku-prebuild": "npm config set $NPM_REGISTRY ; npm config set $NPM_TOKEN"\n    },' package.json
+    jq '.scripts = {"heroku-prebuild": "npm config set $NPM_REGISTRY ; npm config set $NPM_TOKEN"}' package.json
 fi
