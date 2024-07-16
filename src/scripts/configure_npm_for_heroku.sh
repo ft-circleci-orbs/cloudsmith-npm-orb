@@ -76,7 +76,7 @@ else
 fi
 
 # Check if the JSON file is valid
-if ! jq -e . >/dev/null 2>&1 <<<$(cat package.json); then
+if ! jq empty "package.json" >/dev/null 2>&1; then
     echo "could not parse json file. File may be malformed. Exiting."
     exit 1
 fi
