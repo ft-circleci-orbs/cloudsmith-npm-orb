@@ -12,7 +12,7 @@ usage:
         - checkout
         - heroku/install
         - cloudsmith-npm/configure_npm_for_heroku:
-            repository: "circleci-orb-testing"
+            repository: "your-repository-id"
             app_name: "heroku-cloudsmith"
         - run:
             name: Deploy to Heroku
