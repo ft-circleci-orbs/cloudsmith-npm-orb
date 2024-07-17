@@ -69,9 +69,11 @@ if [ -n "$scripts_block_exists" ] && [ -n "$heroku_prebuild_exists" ]; then
     exit 1
 elif [ -n "$scripts_block_exists" ]; then
     # Add heroku-prebuild to existing scripts block
+    echo "Found scripts block. Adding heroku-prebuild."
     jq '.scripts["heroku-prebuild"] = "npm config set $NPM_REGISTRY ; npm config set $NPM_TOKEN"' package.json > package.tmp && mv package.tmp package.json
 else
     # Create scripts block with heroku-prebuild
+    echo "Creating scripts block with heroku-prebuild."
     jq '.scripts["heroku-prebuild"] = "npm config set $NPM_REGISTRY ; npm config set $NPM_TOKEN"' package.json > package.tmp && mv package.tmp package.json
 fi
 
