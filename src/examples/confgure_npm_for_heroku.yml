@@ -13,7 +13,7 @@ usage:
         - heroku/install
         - cloudsmith-npm/configure_npm_for_heroku:
             repository: "your-repository-id"
-            app_name: "heroku-cloudsmith"
+            app_name: "your-heroku-app-name"
         - run:
             name: Deploy to Heroku
             command: |
