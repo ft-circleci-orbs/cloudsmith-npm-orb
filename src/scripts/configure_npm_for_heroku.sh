@@ -71,7 +71,7 @@ scripts_block_exists=$(grep -o '"scripts":' package.json)
 heroku_prebuild_exists=$(grep -o '"heroku-prebuild":' package.json)
 
 if [ -n "$scripts_block_exists" ] && [ -n "$heroku_prebuild_exists" ]; then
-    echo "heroku-prebuild script already exists. Exiting."
+    echo "heroku-prebuild script already exists. Please add 'npm config set \\$NPM_REGISTRY ; npm config set \\$NPM_TOKEN' to your existing heroku-prebuild script. Exiting."
     exit 1
 elif [ -n "$scripts_block_exists" ]; then
     # Add or create heroku-prebuild to existing scripts block
