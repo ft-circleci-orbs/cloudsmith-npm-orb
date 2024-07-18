@@ -10,7 +10,6 @@ usage:
         - image: cimg/node:20.12
       steps:
         - checkout
-        - heroku/install
         - cloudsmith-npm/configure_npm_for_heroku:
             repository: "your-repository-id"
             app_name: "your-heroku-app-name"
