@@ -53,7 +53,7 @@ heroku config:set NPM_TOKEN="$CLOUDSMITH_NPM_AUTH_CONFIG" --app "$APP_NAME" &>/d
 
 # Check for error message in output
 if echo "$output" | grep -q "Error"; then
-    echo "Heroku app name is invalid. Please check your Heroku app name is a valid Heroku app."
+    echo "Heroku config set failed with an error. Please check your Heroku app name is a valid Heroku app."
     exit 1
 fi
 
