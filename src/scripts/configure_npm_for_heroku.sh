@@ -48,8 +48,14 @@ then
 fi
 
 # Set environment variables via Heroku CLI
-heroku config:set NPM_REGISTRY="registry=$CLOUDSMITH_NPM_REGISTRY" --app "$APP_NAME"
+output=$(heroku config:set NPM_REGISTRY="registry=$CLOUDSMITH_NPM_REGISTRY" --app "$APP_NAME" 2>&1)
 heroku config:set NPM_TOKEN="$CLOUDSMITH_NPM_AUTH_CONFIG" --app "$APP_NAME" &>/dev/null # Silencing output as it contains an auth token
+
+# Check for error message in output
+if echo "$output" | grep -q "Error"; then
+    echo "Heroku app name is invalid. Please check your Heroku app name is a valid Heroku app."
+    exit 1
+fi
 
 # Check if package.json exists
 if [ ! -f package.json ]; then
