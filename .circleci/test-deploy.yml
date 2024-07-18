@@ -146,10 +146,9 @@ jobs:
       - image: cimg/node:20.12
     steps:
       - checkout
-      - heroku/install
       - cloudsmith-npm/configure_npm_for_heroku:
           repository: "circleci-orb-testing"
-          app_name: "heroku-cloudsmith"
+          app_name: "heroku-cloudsmith-broken"
           working_directory: ".circleci/heroku-cloudsmith-circleci-test"
       - run:
           name: Test if package.json contains heroku prebuild script
