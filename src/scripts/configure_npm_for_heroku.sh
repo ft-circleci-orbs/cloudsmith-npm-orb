@@ -54,7 +54,7 @@ heroku config:set NPM_TOKEN="$CLOUDSMITH_NPM_AUTH_CONFIG" --app "$APP_NAME" &>/d
 # Check if package.json exists
 if [ ! -f package.json ]; then
     echo "Looking for package.json in $(pwd)"
-    echo "package.json does not exist. Exiting."
+    echo "Unable to configure heroku-prebuild scripts. package.json does not exist."
     exit 1
 fi
 
