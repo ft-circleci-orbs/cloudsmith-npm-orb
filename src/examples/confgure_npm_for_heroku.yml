@@ -16,7 +16,7 @@ usage:
         - run:
             name: Deploy to Heroku
             command: |
-              REMOTE=git.heroku.com/heroku-cloudsmith.git
+              REMOTE=git.heroku.com/<<parameters.app-name>>.git
               git push https://heroku:$HEROKU_API_KEY@$REMOTE main
 
   workflows:
