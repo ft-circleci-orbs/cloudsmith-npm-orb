@@ -3,6 +3,7 @@ orbs:
   # Your orb will be automatically injected here during the pipeline.
   # Reference your orb's jobs and commands below as they will exist when built.
   orb-tools: circleci/orb-tools@12.1
+  heroku: circleci/heroku@2.0
   # The orb definition is intentionally not included here. It will be injected into the pipeline.
   cloudsmith-npm: {}
 
@@ -20,7 +21,6 @@ release-filters: &release-filters
     only: /^v[0-9]+\.[0-9]+\.[0-9]+$/
 
 jobs:
-
   test-set_env_vars_for_npm:
     docker:
       - image: cimg/node:20.12
@@ -141,6 +141,30 @@ jobs:
           command: npm publish
           working_directory: .circleci/simple-npm-package-test
 
+  test-configure_npm_for_heroku:
+    docker:
+      - image: cimg/node:20.12
+    steps:
+      - checkout
+      - cloudsmith-npm/configure_npm_for_heroku:
+          repository: "circleci-orb-testing"
+          app_name: "heroku-cloudsmith"
+          working_directory: ".circleci/heroku-cloudsmith-circleci-test"
+      - run:
+          name: Test if package.json contains heroku prebuild script
+          command: |
+            if ! grep -q "heroku-prebuild" .circleci/heroku-cloudsmith-circleci-test/package.json
+            then
+              echo "Test failed: package.json does not contain heroku-prebuild script."
+              exit 1
+            fi
+            if ! grep -q "npm config set $NPM_REGISTRY" .circleci/heroku-cloudsmith-circleci-test/package.json
+            then
+              echo "Test failed: package.json does not contain NPM REGISTRY."
+              exit 1
+            fi
+            echo "All tests passed."
+
 workflows:
   test-deploy:
     jobs:
@@ -167,6 +191,9 @@ workflows:
       - test-upload_package_native:
           context: circleci-orb-publishing
           filters: *filters
+      - test-configure_npm_for_heroku:
+          context: circleci-orb-publishing
+          filters: *filters
       # The orb must be re-packed for publishing, and saved to the workspace.
       - orb-tools/pack:
           filters: *release-filters
@@ -184,6 +211,7 @@ workflows:
             - test-set_env_vars_for_npm_install_package
             - test-upload_package_using_cli
             - test-upload_package_native
+            - test-configure_npm_for_heroku
           # Use a context to hold your publishing token.
           context: circleci-orb-publishing
           filters: *release-filters

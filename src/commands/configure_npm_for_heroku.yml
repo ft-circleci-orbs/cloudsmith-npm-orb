@@ -1,0 +1,33 @@
+description:
+  Generate temporary Cloudsmith credentials using OIDC and construct a .npmrc for a Cloudsmith
+  repository and service account in your heroku project. On completion the command adds the npm registry and Cloudsmith authentication credentials to a heroku-prebuild script inside your projects package.json.
+parameters:
+  repository:
+    description: The identity/slug of the Cloudsmith repository
+    type: string
+  app_name:
+    description: The name of the Heroku app
+    type: string
+  working_directory:
+    description: The working directory to run the command in
+    type: string
+    default: "."
+steps:
+  - run:
+      name: Cloudsmith - Configure defaults
+      command: <<include(scripts/configure_cloudsmith_defaults.sh)>>
+  - cloudsmith-oidc/authenticate_with_oidc
+  - run:
+      name: Cloudsmith - Set environment variables
+      command: <<include(scripts/set_env_vars_for_npm.sh)>>
+      environment:
+        CLOUDSMITH_REPOSITORY: <<parameters.repository>>
+  - heroku/install
+  - jq/install
+  - run:
+      name: Cloudsmith - Configure cloudsmith npm registry
+      command: <<include(scripts/configure_npm_for_heroku.sh)>>
+      environment:
+        CLOUDSMITH_REPOSITORY: <<parameters.repository>>
+        APP_NAME: <<parameters.app_name>>
+        WORKING_DIR: <<parameters.working_directory>>
