@@ -63,12 +63,12 @@ jobs:
 
   test-configure_npm:
     docker:
-      - image: cimg/node:20.12
+      - image: cimg/node:18.20
     resource_class: small
     steps:
       - checkout
       - cloudsmith-npm/configure_npm:
-          repository: "circleci-orb-testing"
+          repository: circleci-orb-testing
       - run:
           name: Assert .npmrc file has been created
           command: |
