@@ -135,7 +135,7 @@ jobs:
     steps:
       - checkout
       - cloudsmith-npm/configure_npm:
-          repository: "circleci-orb-testing"
+          repository: circleci-orb-testing
       - run:
           name: publish package
           command: npm publish
