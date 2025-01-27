@@ -1,7 +1,7 @@
 version: 2.1
 
 orbs:
-  cloudsmith-oidc: ft-circleci-orbs/cloudsmith-oidc@1.0.0
+  cloudsmith-oidc: ft-circleci-orbs/cloudsmith-oidc@1.0
   jq: circleci/jq@3.0.0
   heroku: circleci/heroku@2.0.0
 
